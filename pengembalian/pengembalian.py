@@ -4,6 +4,34 @@ def process_pengembalian(buku, mahasiswa):
     laporan = []
     
     def kembalikan_buku(nama, judul):
+        if nama not in mahasiswa:
+            return (judul, "Gagal", "Mahasiswa tidak terdaftar")
+        if judul not in buku:
+            return (judul, "Gagal", "Judul tidak ditemukan")
+        if judul in mahasiswa[nama].get("pinjaman", []):
+            mahasiswa[nama]["pinjaman"].remove(judul)
+
+        buku[judul]["stok"] += 1
+        if buku[judul]["status"] == "Kosong":
+            buku[judul]["status"] = "Tersedia"
+            return (judul, "Berhasil", None)
+        else:
+            return (judul, "Gagal", "Tidak tercatat sebagai pinjaman")
+
+        # if nama not in mahasiswa:
+        #     return (judul, "Gagal", "Mahasiswa tidak terdaftar")
+        # if judul not in buku:
+        #     return (judul, "Gagal", "Judul tidak ditemukan")
+        # if judul in mahasiswa[nama].get("pinjaman", []):
+        #     mahasiswa[nama]["pinjaman"].remove(judul)
+        
+        # buku[judul]["stok"] += 1
+        # if buku[judul]["status"] == "Kosong":
+        #     buku[judul]["status"] = "Tersedia"
+        #     return (judul, "Berhasil", None)
+        # return (judul, "Gagal", "Tidak tercatat sebagai pinjaman")
+        
+
         # 1. Validasi mahasiswa
         # TODO: melakukan pengecekan apakah nama mahasiswa ada dalam dictionary buku, kemudian
         #    return (judul, "Gagal", "Mahasiswa tidak terdaftar")
@@ -20,7 +48,6 @@ def process_pengembalian(buku, mahasiswa):
             # return (judul, "Berhasil", None)
 
         # 4. Jika tidak ada di daftar pinjaman
-        return (judul, "Gagal", "Tidak tercatat sebagai pinjaman")
 
     for nama, data in mahasiswa.items():
         hasil_berhasil, hasil_gagal = [], []
@@ -92,3 +119,4 @@ def run_terminal():
 if __name__ == "__main__":
     run_terminal()
     print("\n[INFO] Untuk UI Streamlit, jalankan: streamlit run app.py")
+
