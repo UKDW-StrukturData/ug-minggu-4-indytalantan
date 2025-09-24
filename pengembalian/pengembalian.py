@@ -18,6 +18,8 @@ def process_pengembalian(buku, mahasiswa):
         else:
             return (judul, "Gagal", "Tidak tercatat sebagai pinjaman")
 
+ 
+
         # if nama not in mahasiswa:
         #     return (judul, "Gagal", "Mahasiswa tidak terdaftar")
         # if judul not in buku:
@@ -119,4 +121,5 @@ def run_terminal():
 if __name__ == "__main__":
     run_terminal()
     print("\n[INFO] Untuk UI Streamlit, jalankan: streamlit run app.py")
+
 
