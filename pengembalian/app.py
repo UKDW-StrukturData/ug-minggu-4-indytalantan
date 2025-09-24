@@ -13,9 +13,9 @@ tc = next(tc for tc in test_cases if tc["name"] == pilihan)
 # kemudian definisikan value yang seharusnya
 # =====================================================
 
-# pemberitahuan = 
-# sukses = 
-# gagal = 
+pemberitahuan = st.info
+sukses = st.success
+gagal = st.error
 
 if st.button("Proses Pengembalian"):
     result = process_pengembalian(copy.deepcopy(tc["buku"]), copy.deepcopy(tc["mahasiswa"]))
@@ -39,4 +39,5 @@ if st.button("Proses Pengembalian"):
     st.subheader("Data Mahasiswa Terbaru")
     for nama, data in result["mahasiswa"].items():
         pinj = ", ".join(data.get("pinjaman", [])) if data.get("pinjaman") else "-"
+
         st.write(f"- {nama} | pinjaman: {pinj}")
